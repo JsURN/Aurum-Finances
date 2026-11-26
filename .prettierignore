@@ -6,3 +6,6 @@ coverage
 package-lock.json
 next-env.d.ts
 AGENTS.md
+test-results
+playwright-report
+blob-report

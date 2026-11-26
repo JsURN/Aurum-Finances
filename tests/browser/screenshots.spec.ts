@@ -3,8 +3,10 @@ import { expect, test } from "@playwright/test";
 import { KEYS, seedStorage } from "./helpers";
 
 /*
- * Gera capturas do App Shell para revisão visual. Não compara pixels: os
- * arquivos vão para `test-results/screenshots/` (fora do Git).
+ * Gera capturas da landing page e do App Shell para revisão visual. Não
+ * compara pixels: os arquivos vão para `test-results/screenshots/` (fora do
+ * Git). Os botões de acesso da landing (v0.2.0) são uma mudança intencional,
+ * então a referência visual da landing passa a ser a desta versão.
  */
 
 const VIEWPORTS = [
@@ -14,6 +16,18 @@ const VIEWPORTS = [
 
 for (const theme of ["dark", "light"] as const) {
   for (const viewport of VIEWPORTS) {
+    test(`captura da landing page: ${viewport.name}, tema ${theme}`, async ({ page }) => {
+      await seedStorage(page, { [KEYS.theme]: theme });
+      await page.setViewportSize({ width: viewport.width, height: viewport.height });
+      await page.goto("/");
+      await expect(page.getByRole("link", { name: "Acessar Aurum" })).toBeVisible();
+      await expect(page.getByRole("link", { name: "Acessar plataforma" })).toBeVisible();
+      await page.screenshot({
+        path: `test-results/screenshots/landing-${viewport.name}-${theme}.png`,
+        fullPage: true,
+      });
+    });
+
     test(`captura do App Shell: ${viewport.name}, tema ${theme}`, async ({ page }) => {
       await seedStorage(page, { [KEYS.theme]: theme });
       await page.setViewportSize({ width: viewport.width, height: viewport.height });

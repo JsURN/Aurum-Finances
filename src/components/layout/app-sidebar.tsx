@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { Logo } from "@/components/brand/logo";
+import { HOME_LINK_LABEL, Logo } from "@/components/brand/logo";
 
 import { NavList } from "./nav-list";
 import { SidebarToggle } from "./sidebar-toggle";
@@ -16,11 +16,7 @@ export function AppSidebar() {
       className="sticky top-0 hidden h-dvh w-64 shrink-0 flex-col border-r border-border bg-background transition-[width] duration-200 ease-out lg:flex sidebar-collapsed:w-[4.5rem]"
     >
       <div className="flex h-16 shrink-0 items-center px-4 sidebar-collapsed:justify-center sidebar-collapsed:px-0">
-        <Link
-          href="/dashboard"
-          aria-label="Aurum Finances, ir para a Visão geral"
-          className="rounded-md"
-        >
+        <Link href="/" aria-label={HOME_LINK_LABEL} className="rounded-md">
           <Logo wordmarkClassName="sidebar-collapsed:hidden" />
         </Link>
       </div>

@@ -1,6 +1,6 @@
 # Design System — Aurum Finances
 
-> Status: **Fase 2 em revisão.** Tokens, temas, componentes base (shadcn/ui + Radix), App Shell e componentes financeiros implementados. A vitrine fica em `/design-system`, disponível apenas em desenvolvimento.
+> Status: **Fase 2 concluída (v0.2.0).** Tokens, temas, componentes base (shadcn/ui + Radix), App Shell e componentes financeiros implementados. A vitrine fica em `/design-system`, disponível apenas em desenvolvimento.
 
 ## Direção visual
 

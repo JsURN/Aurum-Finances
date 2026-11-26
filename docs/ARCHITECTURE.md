@@ -125,7 +125,7 @@ app  ──►  features  ──►  components · lib · config
 ### ADR-009 — Route groups e App Shell
 
 - **Status:** aceito (Fase 2)
-- **Decisão:** as páginas internas ficam no route group `src/app/(app)/`, com layout próprio (`AppShell`), e a landing continua em `src/app/page.tsx`, sem o shell. Rotas em inglês (`/dashboard`, `/credit-cards`…), rótulos em pt-BR, definidos em `src/config/navigation.ts`. Módulos não implementados mostram `InDevelopment` com a fase do roadmap, sem dados simulados. A página `/design-system` chama `notFound()` fora de `NODE_ENV=development`.
+- **Decisão:** as páginas internas ficam no route group `src/app/(app)/`, com layout próprio (`AppShell`), e a landing continua em `src/app/page.tsx`, sem o shell. Rotas em inglês (`/dashboard`, `/credit-cards`…), rótulos em pt-BR, definidos em `src/config/navigation.ts`. Módulos não implementados mostram `InDevelopment` com a fase do roadmap, sem dados simulados. A página `/design-system` chama `notFound()` fora de `NODE_ENV=development`. A landing leva a `/dashboard` pelos botões de acesso, e o logotipo do shell leva de volta a `/`.
 - **Consequências:** na Fase 5, a proteção por sessão se aplica ao grupo `(app)` inteiro. Todas as rotas atuais são estáticas, então o `usePathname` da navegação resolve no prerender sem `<Suspense>`. Quando surgir uma rota com parâmetro dinâmico sem `generateStaticParams`, a navegação vai precisar de um `<Suspense>` (ver a documentação de `usePathname` com Cache Components). Ícones (funções) não podem ser passados de Server para Client Components; por isso a `NavList` (cliente) lê a configuração diretamente.
 
 ### ADR-010 — Vitest e Playwright

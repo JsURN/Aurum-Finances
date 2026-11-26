@@ -6,7 +6,9 @@ O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/), e
 
 ## [Unreleased]
 
-Fase 2 — Design System (em revisão, aguardando aprovação).
+## [0.2.0] — 2026-11-26
+
+Fase 2 — Design System concluída.
 
 ### Adicionado
 
@@ -23,13 +25,19 @@ Fase 2 — Design System (em revisão, aguardando aprovação).
 - `formatCurrencyPartsFromCents`, `formatPercent`, `assertCents` e `calculateProgress` (aritmética com BigInt, exata até `Number.MAX_SAFE_INTEGER`).
 - Vitest (testes de funções puras) e Playwright (validação de navegador), com os scripts `test`, `test:watch` e `test:browser` (ADR-010).
 - Ícones com Lucide.
+- Botões de acesso na landing page: "Acessar Aurum" no cabeçalho e "Acessar plataforma" abaixo da descrição, ambos com `Button` + `next/link` para `/dashboard`.
+- Testes de navegador da navegação landing → dashboard → landing (`tests/browser/landing.spec.ts`), com a sidebar expandida, recolhida e no menu mobile, e pelo teclado.
+- Capturas da landing page (360 e 1280 px, dois temas) em `tests/browser/screenshots.spec.ts`.
 
 ### Alterado
 
 - `--input` mais forte nos dois temas: o contorno dos campos tinha 1,4:1–1,5:1 e agora tem >= 3:1 (WCAG 1.4.11).
 - `formatCurrencyFromCents` usa o sinal de menos tipográfico (U+2212) e aceita `signDisplay`; a conversão para reais deixou de usar divisão em ponto flutuante.
 - `viewport.themeColor` passou a ter uma única cor, ajustada ao tema aplicado.
-- `Logo` aceita `wordmarkClassName` (sem mudança visual na landing).
+- `Logo` aceita `wordmarkClassName` e exporta `HOME_LINK_LABEL`, o rótulo acessível dos links do logotipo.
+- O logotipo do App Shell (sidebar expandida ou recolhida, menu mobile e header mobile) leva à landing page (`/`), não mais a `/dashboard`. A trilha de navegação continua começando em `/dashboard`, e a indicação da página ativa não mudou.
+- No menu mobile, o título do diálogo ("Menu de navegação") passou a ser só para leitores de tela, separado do link do logotipo.
+- Landing page: o selo "Em construção" fica oculto abaixo de 640 px, para o botão do cabeçalho caber a partir de 360 px.
 - `npm run check` agora também roda os testes unitários.
 - README: URL de clone corrigida para `JsURN/Aurum-Finances`.
 - CLAUDE.md: stack, comandos e a observação sobre sincronização de pastas atualizados.
@@ -37,15 +45,9 @@ Fase 2 — Design System (em revisão, aguardando aprovação).
 ### Verificado
 
 - `npm run check` (typecheck, lint, format:check e 112 testes unitários) e `npm run build` aprovados.
-- 36 testes de navegador aprovados no Chromium: 360, 768, 1280 e 1920 px nos dois temas, sem scroll horizontal e sem erros de console ou de hidratação.
-- Landing page idêntica pixel a pixel à da Fase 1 (360 e 1280 px).
-
-### Pendente
-
-- Botões de acesso na landing page.
-- Link de retorno pelo logotipo.
-
-Detalhes em [ROADMAP.md](ROADMAP.md#pendências-da-fase-2).
+- 46 testes de navegador aprovados no Chromium: 360, 768, 1280 e 1920 px nos dois temas, sem scroll horizontal e sem erros de console ou de hidratação.
+- A landing page mudou de forma intencional (botões de acesso); as capturas desta versão são a nova referência visual.
+- `npm audit`: 0 vulnerabilidades.
 
 ## [0.1.0] — 2026-11-25
 

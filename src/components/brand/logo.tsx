@@ -1,5 +1,8 @@
 import { siteConfig } from "@/config/site";
 
+/** Rótulo acessível dos links do logotipo que levam à landing page (`/`). */
+export const HOME_LINK_LABEL = `${siteConfig.name}, ir para a página inicial`;
+
 type LogoMarkProps = {
   className?: string;
 };

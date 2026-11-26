@@ -2,7 +2,7 @@
 
 Plataforma full stack moderna de gestão financeira pessoal: receitas e despesas, contas bancárias, cartões de crédito e parcelas, planejamento mensal, metas e investimentos, com uma interface premium em português brasileiro.
 
-> 🚧 **Em desenvolvimento.** Fase 1 (Fundação do projeto) concluída. Fase **2 — Design System** em revisão. Veja o [roadmap](docs/ROADMAP.md).
+> 🚧 **Em desenvolvimento.** Fases 1 (Fundação do projeto) e 2 (Design System) concluídas, versão **0.2.0**. Veja o [roadmap](docs/ROADMAP.md).
 
 ## Stack
 
@@ -33,7 +33,7 @@ cp .env.example .env   # ainda opcional
 npm run dev
 ```
 
-Acesse <http://localhost:3000>. As páginas internas começam em <http://localhost:3000/dashboard>, e a vitrine do Design System (só em desenvolvimento) fica em <http://localhost:3000/design-system>.
+Acesse <http://localhost:3000> e use o botão **Acessar plataforma** para entrar nas páginas internas (<http://localhost:3000/dashboard>). O logotipo do menu leva de volta à página inicial. A vitrine do Design System (só em desenvolvimento) fica em <http://localhost:3000/design-system>.
 
 ## Scripts
 

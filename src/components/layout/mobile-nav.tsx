@@ -1,9 +1,10 @@
 "use client";
 
 import { MenuIcon } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import { Logo } from "@/components/brand/logo";
+import { HOME_LINK_LABEL, Logo } from "@/components/brand/logo";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -51,12 +52,15 @@ export function MobileNav() {
       </SheetTrigger>
       <SheetContent side="left" className="gap-0">
         <SheetHeader className="h-16 justify-center px-4 py-0">
-          <SheetTitle asChild>
-            <div>
-              <Logo />
-              <span className="sr-only">Menu de navegação</span>
-            </div>
-          </SheetTitle>
+          <SheetTitle className="sr-only">Menu de navegação</SheetTitle>
+          <Link
+            href="/"
+            aria-label={HOME_LINK_LABEL}
+            onClick={close}
+            className="self-start rounded-md"
+          >
+            <Logo />
+          </Link>
           <SheetDescription className="sr-only">
             Acesse as seções do Aurum Finances.
           </SheetDescription>

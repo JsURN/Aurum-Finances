@@ -2,12 +2,12 @@
 
 Legenda: ✅ concluída · 🚧 em andamento · ⏳ planejada
 
-**Situação atual:** Fase 1 concluída (v0.1.0, 2026-11-25). Fase 2 — Design System implementada e em revisão.
+**Situação atual:** Fase 2 — Design System concluída (v0.2.0, 2026-11-26). Próxima: Fase 3 — Dashboard visual.
 
 | #   | Fase                          | Status | Entregas principais                                                                                 |
 | --- | ----------------------------- | ------ | --------------------------------------------------------------------------------------------------- |
 | 1   | Fundação do projeto           | ✅     | Next.js, TypeScript strict, Tailwind, ESLint/Prettier, arquitetura, documentação, página temporária |
-| 2   | Design System                 | 🚧     | shadcn/ui, componentes base, temas, App Shell, componentes financeiros, Vitest, Playwright          |
+| 2   | Design System                 | ✅     | shadcn/ui, componentes base, temas, App Shell, componentes financeiros, Vitest, Playwright          |
 | 3   | Dashboard visual              | ⏳     | Layout autenticado (mock), Recharts, cards de resumo com dados fictícios                            |
 | 4   | Banco de dados                | ⏳     | MySQL, Prisma (estável), schema inicial em centavos, seeds fictícios                                |
 | 5   | Autenticação                  | ⏳     | Auth.js, sessão, proteção de rotas, isolamento por `userId`                                         |
@@ -20,13 +20,6 @@ Legenda: ✅ concluída · 🚧 em andamento · ⏳ planejada
 | 12  | Investimentos                 | ⏳     | Reservas e carteira consolidada                                                                     |
 | 13  | Qualidade e segurança         | ⏳     | Playwright E2E, cobertura, headers de segurança, auditoria                                          |
 | 14  | Deploy e lançamento           | ⏳     | CI/CD, ambiente de produção, monitoramento                                                          |
-
-## Pendências da Fase 2
-
-Itens que faltam para concluir a Fase 2. Ainda não foram implementados.
-
-- [ ] Botões de acesso na landing page, para entrar nas páginas internas (hoje a landing não tem nenhum link para o App Shell).
-- [ ] Link de retorno pelo logotipo no App Shell (hoje o logotipo leva para `/dashboard`, e não há caminho de volta para a landing).
 
 ## Definição de pronto (todas as fases)
 

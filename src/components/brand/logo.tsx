@@ -1,5 +1,8 @@
 import { siteConfig } from "@/config/site";
 
+/** Rótulo acessível dos links do logotipo que levam à landing page (`/`). */
+export const HOME_LINK_LABEL = `${siteConfig.name}, ir para a página inicial`;
+
 type LogoMarkProps = {
   className?: string;
 };
@@ -23,14 +26,23 @@ export function LogoMark({ className }: LogoMarkProps) {
 
 type LogoProps = {
   className?: string;
+  /** Classes extras do wordmark (ex.: escondê-lo com a sidebar recolhida). */
+  wordmarkClassName?: string;
 };
 
 /** Monograma + wordmark. O texto do nome fica acessível para leitores de tela. */
-export function Logo({ className }: LogoProps) {
+export function Logo({ className, wordmarkClassName }: LogoProps) {
   return (
     <span className={["inline-flex items-center gap-2.5", className].filter(Boolean).join(" ")}>
       <LogoMark className="size-8 shrink-0" />
-      <span className="font-display text-xl font-medium tracking-tight text-foreground">
+      <span
+        className={[
+          "font-display text-xl font-medium tracking-tight whitespace-nowrap text-foreground",
+          wordmarkClassName,
+        ]
+          .filter(Boolean)
+          .join(" ")}
+      >
         {siteConfig.shortName}
         <span className="text-muted-foreground"> Finances</span>
       </span>

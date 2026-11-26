@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Manrope } from "next/font/google";
 
+import { PreferencesScript } from "@/components/preferences/preferences-script";
+import { PreferencesSync } from "@/components/preferences/preferences-sync";
+import { DEFAULT_PREFERENCES, THEME_COLORS } from "@/config/preferences";
 import { siteConfig } from "@/config/site";
 
 import "./globals.css";
@@ -27,18 +30,30 @@ export const metadata: Metadata = {
   applicationName: siteConfig.name,
 };
 
+// Uma única cor: o script de preferências a ajusta ao tema escolhido (ADR-007).
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#101014" },
-    { media: "(prefers-color-scheme: light)", color: "#f8f6f3" },
-  ],
+  themeColor: THEME_COLORS[DEFAULT_PREFERENCES.theme],
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    // Tema escuro é o padrão. A alternância de tema chega na Fase 2 (Design System).
-    <html lang="pt-BR" className={`dark ${manrope.variable} ${fraunces.variable} h-full`}>
-      <body className="flex min-h-full flex-col">{children}</body>
+    // O HTML do servidor sai com as preferências padrão (tema escuro). O script
+    // inline do <head> aplica as preferências salvas antes da primeira pintura;
+    // `suppressHydrationWarning` vale só para os atributos deste elemento.
+    <html
+      lang="pt-BR"
+      className={`dark ${manrope.variable} ${fraunces.variable} h-full`}
+      data-sidebar={DEFAULT_PREFERENCES.sidebar}
+      data-values={DEFAULT_PREFERENCES.values}
+      suppressHydrationWarning
+    >
+      <head>
+        <PreferencesScript />
+      </head>
+      <body className="flex min-h-full flex-col">
+        <PreferencesSync />
+        {children}
+      </body>
     </html>
   );
 }

@@ -1,12 +1,18 @@
+import { ArrowRightIcon } from "lucide-react";
+import Link from "next/link";
+
 import { Logo } from "@/components/brand/logo";
+import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 import { formatCurrencyFromCents } from "@/lib/format";
 
 /*
- * Página inicial TEMPORÁRIA (Fase 1).
- * Apresenta a identidade visual enquanto o Design System e o Dashboard não existem.
+ * Landing page (rota `/`), fora do App Shell.
+ * Apresenta a identidade visual e leva às páginas internas (`/dashboard`).
  * Todos os valores abaixo são fictícios e estão em centavos inteiros (ADR-002).
  */
+
+const APP_ENTRY_HREF = "/dashboard";
 
 const previewSummary = [
   { label: "Receitas do mês", cents: 985_000, tone: "text-success", sign: "+" },
@@ -33,9 +39,15 @@ export default function HomePage() {
 
       <header className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-4 py-6 sm:px-6">
         <Logo />
-        <p className="rounded-full border border-border bg-surface/60 px-3 py-1 text-xs font-medium text-muted-foreground">
-          Em construção
-        </p>
+        <div className="flex items-center gap-3">
+          {/* Escondido abaixo de 640px para caber ao lado do botão a partir de 360px. */}
+          <p className="hidden rounded-full border border-border bg-surface/60 px-3 py-1 text-xs font-medium text-muted-foreground sm:block">
+            Em construção
+          </p>
+          <Button asChild variant="outline" size="sm">
+            <Link href={APP_ENTRY_HREF}>Acessar Aurum</Link>
+          </Button>
+        </div>
       </header>
 
       <main className="mx-auto grid w-full max-w-6xl flex-1 gap-16 px-4 pt-10 pb-20 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-12 lg:pt-16">
@@ -52,6 +64,14 @@ export default function HomePage() {
           <p className="max-w-xl text-base leading-relaxed text-pretty text-muted-foreground sm:text-lg">
             {siteConfig.description}
           </p>
+          <div>
+            <Button asChild size="lg" className="w-full sm:w-auto">
+              <Link href={APP_ENTRY_HREF}>
+                Acessar plataforma
+                <ArrowRightIcon aria-hidden="true" />
+              </Link>
+            </Button>
+          </div>
         </section>
 
         <aside

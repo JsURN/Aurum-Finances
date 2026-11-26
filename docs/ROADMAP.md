@@ -2,12 +2,12 @@
 
 Legenda: ✅ concluída · 🚧 em andamento · ⏳ planejada
 
-**Situação atual:** Fase 1 concluída (v0.1.0, 2026-11-25). Próxima: Fase 2 — Design System (não iniciada).
+**Situação atual:** Fase 2 — Design System concluída (v0.2.0, 2026-11-26). Próxima: Fase 3 — Dashboard visual.
 
 | #   | Fase                          | Status | Entregas principais                                                                                 |
 | --- | ----------------------------- | ------ | --------------------------------------------------------------------------------------------------- |
 | 1   | Fundação do projeto           | ✅     | Next.js, TypeScript strict, Tailwind, ESLint/Prettier, arquitetura, documentação, página temporária |
-| 2   | Design System                 | ⏳     | shadcn/ui, componentes base, toggle de tema, Vitest                                                 |
+| 2   | Design System                 | ✅     | shadcn/ui, componentes base, temas, App Shell, componentes financeiros, Vitest, Playwright          |
 | 3   | Dashboard visual              | ⏳     | Layout autenticado (mock), Recharts, cards de resumo com dados fictícios                            |
 | 4   | Banco de dados                | ⏳     | MySQL, Prisma (estável), schema inicial em centavos, seeds fictícios                                |
 | 5   | Autenticação                  | ⏳     | Auth.js, sessão, proteção de rotas, isolamento por `userId`                                         |

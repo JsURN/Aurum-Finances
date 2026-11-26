@@ -1,16 +1,26 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
 /*
  * Aurum Finances — tokens semânticos
  * ---------------------------------------------------------------------------
  * Componentes usam APENAS tokens (bg-background, text-accent, ...), nunca hex.
  * `:root` define o tema claro; `.dark` (aplicado no <html>) define o escuro,
- * que é o tema padrão da aplicação. Detalhes em docs/DESIGN_SYSTEM.md.
+ * que é o tema padrão da aplicação. `.light` força o tema claro em um trecho
+ * (usado na prévia lado a lado da página /design-system).
+ * O contraste de cada par é verificado em `tests/unit/design-tokens.test.ts`.
+ * Detalhes em docs/DESIGN_SYSTEM.md.
  */
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-:root {
+/* Preferências de interface aplicadas como atributos no <html> (ADR-008). */
+@custom-variant sidebar-collapsed (&:where([data-sidebar="collapsed"] *));
+@custom-variant sidebar-expanded (&:where(:root:not([data-sidebar="collapsed"]) *));
+@custom-variant values-hidden (&:where([data-values="hidden"] *));
+
+:root,
+.light {
   color-scheme: light;
 
   --background: #f8f6f3;
@@ -23,8 +33,13 @@
   --muted: #eeeae5;
   --muted-foreground: #5f5a66;
 
+  /* Hover e seleção neutros (menus, listas, navegação). */
+  --highlight: #f3e8ec;
+  --highlight-foreground: #17161c;
+
   --border: #e2dcd5;
-  --input: #d8d1c9;
+  /* Contorno de campos: >= 3:1 contra surface/background (WCAG 1.4.11). */
+  --input: #8a828f;
   --ring: #753951;
 
   --primary: #753951;
@@ -37,7 +52,11 @@
   --gold-foreground: #ffffff;
 
   --success: #1d7348;
+  --success-foreground: #ffffff;
   --danger: #b42332;
+  --danger-foreground: #ffffff;
+
+  --overlay: rgb(23 22 28 / 0.45);
 
   --radius: 0.875rem;
 }
@@ -55,8 +74,11 @@
   --muted: #23232d;
   --muted-foreground: #a29eaa;
 
+  --highlight: #2c2430;
+  --highlight-foreground: #f3f0ec;
+
   --border: #2c2c38;
-  --input: #34343f;
+  --input: #75707f;
   --ring: #d98eac;
 
   --primary: #753951;
@@ -68,7 +90,11 @@
   --gold-foreground: #101014;
 
   --success: #6fcf97;
+  --success-foreground: #101014;
   --danger: #f08a8a;
+  --danger-foreground: #101014;
+
+  --overlay: rgb(5 5 8 / 0.72);
 }
 
 @theme inline {
@@ -79,6 +105,8 @@
   --color-surface-elevated: var(--surface-elevated);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
+  --color-highlight: var(--highlight);
+  --color-highlight-foreground: var(--highlight-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -89,11 +117,25 @@
   --color-gold: var(--gold);
   --color-gold-foreground: var(--gold-foreground);
   --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
   --color-danger: var(--danger);
+  --color-danger-foreground: var(--danger-foreground);
+  --color-overlay: var(--overlay);
+
+  /* Aliases na convenção do shadcn/ui (ADR-006). */
+  --color-card: var(--surface);
+  --color-card-foreground: var(--surface-foreground);
+  --color-popover: var(--surface-elevated);
+  --color-popover-foreground: var(--foreground);
+  --color-secondary: var(--muted);
+  --color-secondary-foreground: var(--foreground);
+  --color-destructive: var(--danger);
+  --color-destructive-foreground: var(--danger-foreground);
 
   --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
 
+  --radius-xs: calc(var(--radius) - 0.5rem);
   --radius-sm: calc(var(--radius) - 0.375rem);
   --radius-md: calc(var(--radius) - 0.25rem);
   --radius-lg: var(--radius);
@@ -119,6 +161,16 @@
 
   ::selection {
     @apply bg-primary text-primary-foreground;
+  }
+
+  /*
+   * Ocultação de valores financeiros (ADR-008). É apenas visual: o valor
+   * continua no HTML. `display: none` também o remove da árvore de
+   * acessibilidade, então leitores de tela anunciam só a máscara.
+   */
+  [data-values="hidden"] [data-sensitive="value"],
+  :root:not([data-values="hidden"]) [data-sensitive="mask"] {
+    display: none !important;
   }
 
   @media (prefers-reduced-motion: reduce) {

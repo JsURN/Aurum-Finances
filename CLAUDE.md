@@ -10,17 +10,21 @@ O Aurum Finances é uma aplicação full stack de gestão financeira pessoal, co
 
 ## Stack e versões
 
-| Item         | Versão                              | Observação                                                             |
-| ------------ | ----------------------------------- | ---------------------------------------------------------------------- |
-| Node.js      | >= 20.9 (dev: 24 LTS, ver `.nvmrc`) |                                                                        |
-| Next.js      | 16.4.6 (App Router, Turbopack)      | `cacheComponents` + `partialPrefetching` ligados                       |
-| React        | 19.3.0                              |                                                                        |
-| TypeScript   | 6.0.3                               | **Não atualizar para 7.x**: o `typescript-eslint` exige `<6.1`         |
-| Tailwind CSS | 4.3.3                               | Config em CSS (`src/app/globals.css`), loader `@tailwindcss/turbopack` |
-| ESLint       | 9.x                                 | **Não atualizar para 10**: o `eslint-plugin-react` ainda não suporta   |
-| Prettier     | 3.x                                 | + `prettier-plugin-tailwindcss`                                        |
+| Item         | Versão                               | Observação                                                                |
+| ------------ | ------------------------------------ | ------------------------------------------------------------------------- |
+| Node.js      | >= 20.9 (dev: 24 LTS, ver `.nvmrc`)  |                                                                           |
+| Next.js      | 16.4.6 (App Router, Turbopack)       | `cacheComponents` + `partialPrefetching` ligados                          |
+| React        | 19.3.0                               |                                                                           |
+| TypeScript   | 6.0.3                                | **Não atualizar para 7.x**: o `typescript-eslint` exige `<6.1`            |
+| Tailwind CSS | 4.3.3                                | Config em CSS (`src/app/globals.css`), loader `@tailwindcss/turbopack`    |
+| ESLint       | 9.x                                  | **Não atualizar para 10**: o `eslint-plugin-react` ainda não suporta      |
+| Prettier     | 3.x                                  | + `prettier-plugin-tailwindcss`                                           |
+| shadcn/ui    | CLI 4.23.1 via `npx` (não instalado) | Base Radix (`radix-ui` 1.8.1). Ver ADR-006 antes de adicionar componentes |
+| Lucide       | `lucide-react` 1.80.0                | Única biblioteca de ícones                                                |
+| Vitest       | 4.1.x                                | **Não atualizar para 5.x**: exige Node >= 22.12 (ADR-010)                 |
+| Playwright   | 1.65.x (só Chromium)                 | Validação de navegador em `tests/browser/`                                |
 
-Ainda não instalados (cada um entra na sua fase): shadcn/ui, Recharts, Prisma + MySQL, Auth.js, Zod, Vitest e Playwright. Pacotes que estão em pré-release na tag `latest` (Prisma 8 RC, Auth.js v5 beta) exigem decisão registrada em ADR antes de serem instalados.
+Ainda não instalados (cada um entra na sua fase): Recharts, Prisma + MySQL, Auth.js e Zod. Pacotes que estão em pré-release na tag `latest` (Prisma 8 RC, Auth.js v5 beta) exigem decisão registrada em ADR antes de serem instalados.
 
 ## Comandos
 
@@ -31,7 +35,9 @@ npm run typecheck     # next typegen + tsc --noEmit
 npm run lint          # ESLint
 npm run format        # Prettier (escreve)
 npm run format:check  # Prettier (só verifica)
-npm run check         # typecheck + lint + format:check
+npm run test          # testes unitários (Vitest)
+npm run test:browser  # validação de navegador (Playwright; faz build e sobe servidores)
+npm run check         # typecheck + lint + format:check + test
 ```
 
 Antes de dar uma fase como concluída, `npm run check` e `npm run build` precisam passar.
@@ -83,5 +89,7 @@ Direção das importações: `app → features → components / lib / config`. U
 
 ## Ambiente
 
-- O repositório está dentro do OneDrive. A sincronização de `node_modules/` e `.next/` pode causar erros EPERM/EBUSY no Windows. Se acontecer, pause a sincronização ou mova o projeto para fora do OneDrive.
+- Evite manter o projeto em pastas sincronizadas (OneDrive, Dropbox e afins): a sincronização de `node_modules/` e `.next/` pode causar erros EPERM/EBUSY no Windows.
+- No Windows, rode o Vitest a partir de um caminho com a letra do drive em maiúscula (`C:\…`). Com `c:\…`, ele falha com "Vitest failed to find the current suite" (ADR-010).
+- Se o `next dev` continuar servindo estilos antigos depois de uma mudança no `globals.css`, salve o arquivo de novo ou reinicie o servidor.
 - Finais de linha: LF (`.gitattributes` e `.editorconfig`).
